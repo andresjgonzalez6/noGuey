@@ -1,17 +1,21 @@
 $("#tables-btn").on("click", function () {
+    let well = $('<div class="well">');
+    
     $.get("/api/tables", function (data) {
         console.log(data);
-        console.log(data);
          if (data) {
-
-          $("#stats").show();
-          $("#name").text(data.name);
-          $("#role").text(data.role);
-          $("#age").text(data.age);
-          $("#force-points").text(data.strengthPoints);
+             for(let i = 0; i < data[0].length; i++){
+                well.empty();
+                well.append(i,buildWell(data[0][i].customerID));
+             }
         }
     });
 });
+
+function buildWell(count,item){
+    let h2 = $(`<h2>`);
+
+}
 
 
 $("#submit-btn").on("click", function () {
