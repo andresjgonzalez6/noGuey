@@ -6,12 +6,15 @@ var path = require("path");
 let app = express();
 let PORT = process.env.PORT || 3828;
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.listen(PORT, function () {
     console.log("Listening on port: " + PORT);
 });
 
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "home.html"));
+    res.sendFile(path.join(__dirname, "public/pages/home.html"));
 });
 
 app.get("/api/reserve", function (req, res) {
@@ -19,28 +22,27 @@ app.get("/api/reserve", function (req, res) {
 });
 
 app.get("/tables", function (req, res) {
-    res.sendFile(path.join(__dirname, "tables.html"));
+    res.sendFile(path.join(__dirname, "public/pages/tables.html"));
 });
 
 app.get("/reserve", function (req, res) {
-    res.sendFile(path.join(__dirname, "reserve.html"));
+    res.sendFile(path.join(__dirname, "public/pages/reserve.html"));
 });
 
 // creates a new table for waitlist
-app.post("/tables", function (req, res) {
-    let newReservation = req.body;
+app.post("/api/tables", function (req, res) {
+    let newWait = req.body;
 
-    console.log(newReservation);
+    console.log(newWait);
 
-    waitList.push(newReservation);
+    waitList.push(newWait);
 
-    return res.json(newReservation);
+    return res.json(newWait);
 });
-//app.use(express.urlencoded({ extended: true }));
-//app.use(express.json());
+
 let reserveList = [
     {
-        "customerName": "abby",
+        "customerName": "allison",
         "phoneNumber": "xxx-xxx-xxxx",
         "customerEmail": "xxxxx@gmail.com",
         "customerID": "0"
@@ -112,17 +114,6 @@ let waitList = [
     }
 ];
 
-function displayRoot(url, req, res) {
-    // code here
-};
-
-function displayReserve(url, req, res) {
-    // code here
-};
-
-function displayTables(url, req, res) {
-    // code here
-};
 
 function handleRequest(req, res) {
 
