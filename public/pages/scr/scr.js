@@ -1,24 +1,32 @@
 $("#tables-btn").on("click", function () {
-    //var searchedCharacter = $("#character-search").val().trim();
-
-    // Using a RegEx Pattern to remove spaces from searchedCharacter
-    // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-    //searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
-
-    // QUESTION: What does $.get do? What are the parameters it is expecting?
-    $.get("/tables/", function (data) {
+    $.get("/api/tables", function (data) {
         console.log(data);
         console.log(data);
-        /* if (data) {
+         if (data) {
+
           $("#stats").show();
           $("#name").text(data.name);
           $("#role").text(data.role);
           $("#age").text(data.age);
           $("#force-points").text(data.strengthPoints);
         }
-        else {
-          $("#name").text("They are not an avenger, Check the Revengers. Your character was not found.");
-          $("#stats").hide();
-        } */
     });
+});
+
+
+$("#submit-btn").on("click", function () {
+    event.preventDefault();
+        var newReservation = {
+          name: $("#name").val().trim(),
+          role: $("#phone_number").val().trim(),
+          age: $("#email").val().trim(),
+          strengthPoints: $("#unique_id").val().trim()
+        };
+  
+        // Question: What does this code do??
+        $.post("/api/reservation", newReservation)
+          .then(function(data) {
+              console.log(data);
+            alert("reserved");
+          });
 });
