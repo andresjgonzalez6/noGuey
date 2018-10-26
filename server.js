@@ -31,17 +31,31 @@ app.get("/tables", function (req, res) {
 });
 
 app.get("/api/tables", function (req, res) {
-    return res.json(waitList);
-   
+    
+    let masterList = [
+        reserveList,
+        waitList
+    ];
+    return res.json(masterList);
 });
 
-app.get("/reserve", function (req, res) {
-    res.sendFile(path.join(__dirname, "public/pages/reserve.html"));
+app.get("/reservation", function (req, res) {
+    res.sendFile(path.join(__dirname, "public/pages/reservation.html"));
     console.log("reserve");
 });
 
+function toWaitOrReserve(reservation){
+    if (reserveList.length < 5){
+        reserveList.push(reservation);
+        return "Reserved";
+    }
+    else{
+        waitList.push(newWait);
+        return "Added to waitlist"
+    }
+}
 // creates a new table for waitlist
-app.post("/api/tables", function (req, res) {
+/* app.post("/api/tables", function (req, res) {
     let newWait = req.body;
 
     console.log(newWait);
@@ -49,7 +63,18 @@ app.post("/api/tables", function (req, res) {
     waitList.push(newWait);
 
     return res.json(newWait);
+}); */
+
+app.post("/api/reserve", function (req, res) {
+    let newReserve = req.body;
+
+    console.log(newReserve);
+
+    return res.json(toWaitOrReserve(newReserve));
+
+    
 });
+
 
 let reserveList = [
     {
