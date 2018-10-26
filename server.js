@@ -13,20 +13,31 @@ app.listen(PORT, function () {
     console.log("Listening on port: " + PORT);
 });
 
+// information to send html request
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "public/pages/home.html"));
+    console.log("home");
 });
 
 app.get("/api/reserve", function (req, res) {
     return res.json(reserveList);
+   
 });
 
 app.get("/tables", function (req, res) {
+    
     res.sendFile(path.join(__dirname, "public/pages/tables.html"));
+    console.log("tables");
+});
+
+app.get("/api/tables", function (req, res) {
+    return res.json(waitList);
+   
 });
 
 app.get("/reserve", function (req, res) {
     res.sendFile(path.join(__dirname, "public/pages/reserve.html"));
+    console.log("reserve");
 });
 
 // creates a new table for waitlist
@@ -115,24 +126,5 @@ let waitList = [
 ];
 
 
-function handleRequest(req, res) {
 
-    // Capture the url the request is made to
-    var path = req.url;
 
-    // Depending on the URL, display a different HTML file.
-    switch (path) {
-
-        case "/":
-            return displayRoot(path, req, res);
-
-        case "/reserve":
-            return displayReserve(path, req, res);
-
-        case "/tables":
-            return displayTables(path, req, res);
-
-        default:
-            return display404(path, req, res);
-    }
-};

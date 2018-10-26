@@ -6,7 +6,7 @@ $("#tables-btn").on("click", function () {
     //searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
 
     // QUESTION: What does $.get do? What are the parameters it is expecting?
-    $.get("/tables/", function (data) {
+    $.get("/tables", function (data) {
         console.log(data);
         console.log(data);
         /* if (data) {
